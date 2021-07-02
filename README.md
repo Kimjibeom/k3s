@@ -31,7 +31,7 @@ Great for:
 
 ![1](https://user-images.githubusercontent.com/73589723/124220346-b2d6b880-db38-11eb-8e10-80ad51b9031b.PNG)
 
-설치
+# 설치
 
 1. Download `k3s` from latest [release](https://github.com/k3s-io/k3s/releases/latest), x86_64, armhf, and arm64 are supported.
 1. Run the server.
