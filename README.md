@@ -40,37 +40,31 @@ Great for:
 # 설치
 
 
+스크립트는 K3s를 다운로드하고 시스템 또는 openrc에 서비스를 추가하는 편리한 방법을 제공합니다.install.sh
 
-1. Download `k3s` from latest [release](https://github.com/k3s-io/k3s/releases/latest), x86_64, armhf, and arm64 are supported.
-1. Run the server.
-
-The `install.sh` script provides a convenient way to download K3s and add a service to systemd or openrc.
-
-To install k3s as a service, run:
+k3s를 서비스로 설치하려면 다음을 실행하십시오.
 
 ```bash
 curl -sfL https://get.k3s.io | sh -
 ```
 
-A kubeconfig file is written to `/etc/rancher/k3s/k3s.yaml` and the service is automatically started or restarted.
-The install script will install K3s and additional utilities, such as `kubectl`, `crictl`, `k3s-killall.sh`, and `k3s-uninstall.sh`, for example:
+kubeconfig 파일이 작성되고 서비스가 자동으로 시작되거나 다시 시작됩니다. 설치 스크립트는 K3및 추가 유틸리티(예: 다음과 같은)를 설치합니다. /etc/rancher/k3s/k3s. yamlkubectl crictl k3s-killall.sh k3s-uninstall.sh
 
 ```bash
 sudo kubectl get nodes
 ```
 
-`K3S_TOKEN` is created at `/var/lib/rancher/k3s/server/node-token` on your server.
-To install on worker nodes, pass `K3S_URL` along with
-`K3S_TOKEN` or `K3S_CLUSTER_SECRET` environment variables, for example:
+K3S_TOKEN 서버에서 만들어집니다. 작업자 노드에 설치하려면 다음과 같은 환경 변수와 함께 전달합니다. /var/lib/rancher/k3s/server/node-token K3S_URLK3S_TOKEN K3S_CLUSTER_SECRET
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=XXX sh -
 ```
+
+
+1. 최신 릴리스에서다운로드, x86_64, armhf 및 arm64지원됩니다. k3s
+2. 서버를 실행합니다.
+
 ```bash
-
-1. Download `k3s` from latest [release](https://github.com/k3s-io/k3s/releases/latest), x86_64, armhf, and arm64 are supported.
-2. Run the server.
-
 sudo k3s server &
 # Kubeconfig is written to /etc/rancher/k3s/k3s.yaml
 sudo k3s kubectl get nodes
