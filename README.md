@@ -12,6 +12,8 @@ Great for:
 * Embedding k8s
 * Situations where a PhD in k8s clusterology is infeasible
 
+
+
 1. 단일 바이너리로 패키지되어 있습니다.
 2. sqlite3에 대한 지원을 기본 스토리지 백엔드로 추가합니다. Ettd3, MySQL 및 Postgres도 지원됩니다.
 3. Kubernetes 및 기타 구성 요소를 하나의 간단한 런처에 래핑합니다.
@@ -27,11 +29,17 @@ Great for:
 - 임베디드 네트워크 정책 컨트롤러
 6. 웹 소켓 터널을 통해 Kubernetes 제어부 노드에 이 API를 노출시켜 Kubernetes worker 노드의 포트를 노출할 필요가 없습니다.
 
+
+
 # 작동 방식
 
 ![1](https://user-images.githubusercontent.com/73589723/124220346-b2d6b880-db38-11eb-8e10-80ad51b9031b.PNG)
 
+
+
 # 설치
+
+
 
 1. Download `k3s` from latest [release](https://github.com/k3s-io/k3s/releases/latest), x86_64, armhf, and arm64 are supported.
 1. Run the server.
@@ -71,9 +79,15 @@ sudo k3s kubectl get nodes
 # /var/lib/rancher/k3s/server/node-token on your server
 sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
 ```
+
+
 자세한 설치메뉴얼은 k3s-install-Raspberry-PI 레퍼지토리를 참고.
 
+
+
 # Kubeflow 파이프라인 배포
+
+
 
 Kubeflow 파이프라인의 설치 프로세스는 이 가이드에서 다루는 세 가지 환경 모두에 대해 동일합니다.
 
@@ -120,6 +134,7 @@ kubectl delete -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-sco
 kubectl delete -k manifests/kustomize/env/platform-agnostic-pns
 kubectl delete -k manifests/kustomize/cluster-scoped-resources
 ```
+
 
 # 참고
 https://github.com/k3s-io/k3s/blob/master/README.md  //k3s github
