@@ -73,3 +73,54 @@ sudo k3s agent --server https://myserver:6443 --token ${NODE_TOKEN}
 ```
 자세한 설치메뉴얼은 k3s-install-Raspberry-PI 레퍼지토리를 참고.
 
+# Kubeflow 파이프라인 배포
+
+Kubeflow 파이프라인의 설치 프로세스는 이 가이드에서 다루는 세 가지 환경 모두에 대해 동일합니다.
+
+1. Kubeflow 파이프라인을 배포하려면 다음 명령을 실행합니다.
+
+```bash
+# env/platform-agnostic-pns hasn't been publically released, so you will install it from master
+export PIPELINE_VERSION=1.6.0
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$PIPELINE_VERSION"
+kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
+kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/platform-agnostic-pns?ref=$PIPELINE_VERSION"
+```
+Kubeflow 파이프라인 배포를 완료하는 데 몇 분 정도 걸릴 수 있습니다.
+
+2. 포트 포워딩으로 Kubeflow 파이프라인 UI에 액세스할 수 있는지 확인합니다.
+```bash
+kubectl port-forward -n kubeflow svc/ml-pipeline-ui 8080:80
+```
+
+그런 다음 가상 시스템 내에서 종류 또는 K3s를 사용하는 경우 Kubeflow 파이프라인 UI를 엽니다.
+```http://localhost:8080/http://{YOUR_VM_IP_ADDRESS}:8080/```
+
+# Kubeflow 파이프라인 제거
+
+다음은 종류, K3s 또는 K3ai에서 Kubeflow 파이프라인을 제거하는 단계입니다.
+
+- 매니페스트 파일을 사용하여 Kubeflow 파이프라인을 제거하려면 매니페스트 파일의 이름으로 대체하여 다음 명령을 실행합니다.{YOUR_MANIFEST_FILE}
+
+```bash
+kubectl delete -k {YOUR_MANIFEST_FILE}`
+```
+
+- Kubeflow 파이프라인의 GitHub 리포지토리의 매니페스트를 사용하여 Kubeflow 파이프라인을 제거하려면 다음 명령을 실행합니다.
+
+```bash
+export PIPELINE_VERSION=1.6.0
+kubectl delete -k "github.com/kubeflow/pipelines/manifests/kustomize/env/platform-agnostic-pns?ref=$PIPELINE_VERSION"
+kubectl delete -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$PIPELINE_VERSION"
+```
+
+- 로컬 리포지토리 또는 파일 시스템의 매니페스트를 사용하여 Kubeflow 파이프라인을 제거하려면 다음 명령을 실행합니다.
+
+```bash
+kubectl delete -k manifests/kustomize/env/platform-agnostic-pns
+kubectl delete -k manifests/kustomize/cluster-scoped-resources
+```
+
+# 참고
+https://github.com/k3s-io/k3s/blob/master/README.md  //k3s github
+https://www.kubeflow.org/docs/components/pipelines/installation/localcluster-deployment/  //kubeflow
